@@ -29,21 +29,25 @@ const API_ENDPOINT = "https://xcountries-backend.azurewebsites.net/all";
 
 const Countries = () => {
   const [countryData, setCountryData] = useState([]);
-  const [error, setError] = useState(null); // ✅ Added
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ added
 
   useEffect(() => {
     fetch(API_ENDPOINT)
       .then((res) => res.json())
-      .then((data) => setCountryData(data))
+      .then((data) => {
+        setCountryData(data);
+        setLoading(false);
+      })
       .catch((err) => {
-        console.error("Error fetching data:", err.message); // ✅ Cypress expects this
+        console.error("Error fetching data:", err); // ✅ logs full error
         setError(err.message);
+        setLoading(false);
       });
   }, []);
 
-  // Optional: display loading/error state
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (countryData.length === 0) return <p>Loading...</p>;
 
   return (
     <div
