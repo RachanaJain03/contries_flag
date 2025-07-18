@@ -40,7 +40,7 @@ const Countries = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching data:", err); // ✅ logs full error
+        console.error(`Error fetching data: ${err.message}`); // ✅ logs full error
         setError(err.message);
         setLoading(false);
       });
