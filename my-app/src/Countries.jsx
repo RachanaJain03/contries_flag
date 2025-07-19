@@ -29,25 +29,17 @@ const API_ENDPOINT = "https://xcountries-backend.azurewebsites.net/all";
 
 const Countries = () => {
   const [countryData, setCountryData] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // ✅ added
+  //const [error, setError] = useState(null);
+  //const [loading, setLoading] = useState(true); // ✅ added
 
-  useEffect(() => {
-    fetch(API_ENDPOINT)
-      .then((res) => res.json())
-      .then((data) => {
-        setCountryData(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(`Error fetching data: ${err.message}`); // ✅ logs full error
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
+  useEffect(()=>{
+    fetch(API_ENDPOINT).then((res)=>res.json()).then((data)=>setCountryData(data)).catch((error)=>console.error("Error fetching data: ",error))
+  },[])
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  
+
+  //if (loading) return <p>Loading...</p>;
+  //if (error) return <p>Error: {error}</p>;
 
   return (
     <div
