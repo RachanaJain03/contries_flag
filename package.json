@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/RachanaJain03/contries_flag/issues"
   },
-  "homepage": "https://github.com/RachanaJain03/contries_flag#readme"
+  "homepage": "https://github.com/RachanaJain03/contries_flag#readme",
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  }
 }
