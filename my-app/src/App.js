@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import CountryCard from './Countries';
+import Countries from './Countries';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         
         
-        <CountryCard/>
+        <Countries/>
         
       </header>
     </div>
