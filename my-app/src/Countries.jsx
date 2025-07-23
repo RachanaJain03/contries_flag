@@ -29,37 +29,35 @@ const API_ENDPOINT = "https://xcountries-backend.azurewebsites.net/all";
 
 const Countries = () => {
   const [countryData, setCountryData] = useState([]);
-  //const [error, setError] = useState(null);
-  //const [loading, setLoading] = useState(true); // ✅ added
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    fetch(API_ENDPOINT).then((res)=>res.json()).then((data)=>setCountryData(data)).catch((error)=>console.error("Error fetching data: ",error))
-  },[])
+  useEffect(() => {
+    fetch(API_ENDPOINT)
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then((data) => {
+        setCountryData(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching data: ", error);
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
 
-  
-
-  //if (loading) return <p>Loading...</p>;
-  //if (error) return <p>Error: {error}</p>;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p style={{ color: "red" }}>Error: {error}</p>;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "10px",
-        alignItems: "center",
-      }}
-    >
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", alignItems: "center" }}>
       {countryData.map((item) => (
-        <CountryCard
-          name={item.name}
-          flag={item.flag}
-          abbr={item.abbr}
-          key={item.abbr}
-        />
+        <CountryCard key={item.abbr} name={item.name} flag={item.flag} abbr={item.abbr} />
       ))}
     </div>
   );
 };
-
 export default Countries;
